@@ -3,18 +3,30 @@ require "game"
 
 describe Game do
 	let (:g) {g = Game.new}
-	def roll_many(n, pins)
-     n.times do
-       g.roll(pins)
-     end
-   end
+   	it "able to create a new game" do
+	end
 	it 'can roll a spare' do
-      roll_spare
+      g.roll(5)
+      g.roll(5) #spare
       g.roll(3)
-      roll_many(17, 0)
+      g.roll(4)
+      g.roll(3)
+      g.roll(4)
+      g.roll(3)
+      g.roll(4)
+      g.roll(3)
+      g.roll(4)
+      g.roll(3)
+      g.roll(4)
+      g.roll(3)
+      g.roll(4)
+      g.roll(3)
+      g.roll(4)
+      g.roll(3)
+      g.roll(4)
+      g.roll(3)
+      g.roll(4)
+      expect(g.score).to eq(76)
     end 
-   def roll_spare
-     g.roll(5)
-     g.roll(5)
-   end
+   
 end
