@@ -2,42 +2,42 @@ class Game
 	def initialize
 		@rolls = []
     end
+
 	def roll(pins)
 		@rolls << pins
  	end
- 	 def score
-      score = 0
-      first_in_frame = 0
-      frame = 0
-      while frame < 10
-          if strike?(first_in_frame)
-             score += 10 + strike_bonus_balls(first_in_frame)
-             first_in_frame +=1
-           elsif spare?(first_in_frame)
-             score += 10 + @rolls[first_in_frame + 2]
-             first_in_frame += 2
-           else
-        score += two_balls_in_frame(first_in_frame)
-        first_in_frame += 2
-       end
-       frame +=1
-     end
-     score
+ 	
+ 	def score
+		score = 0
+		row1 = 0
+		frame = 0
+		while frame < 10
+			if strike(row1)
+				score += 10 + strike_bonus(row1)
+            	row1 +=1
+        	elsif spare(row1)
+				score += 10 + spare_bonus(row1)
+				row1 += 2
+			else
+				score += @rolls[row1] + @rolls[row1+1]
+				row1 += 2
+			end
+			frame +=1
+     	end
+     	score
    end
  
-   def spare?(first_in_frame)
-     @rolls[first_in_frame] + @rolls[first_in_frame + 1] == 10
+   def spare(row1)
+		@rolls[row1] + @rolls[row1+1] == 10
    end
-   def strike?(first_in_frame)
-     @rolls[first_in_frame] == 10
+   def spare_bonus(row1)
+         @rolls[row1 + 2]
    end
-   def strike_bonus_balls(first_in_frame)
-         @rolls[first_in_frame + 1] + @rolls[first_in_frame + 2]
+
+   def strike(row1)
+		@rolls[row1] == 10
    end
-   def spare_bonus_ball(first_in_frame)
-         @rolls[first_in_frame + 2]
+   def strike_bonus(row1)
+         @rolls[row1+1] + @rolls[row1+2]
    end
-   def two_balls_in_frame(first_in_frame)
-         @rolls[first_in_frame] + @rolls[first_in_frame + 1]
-      end
 end
